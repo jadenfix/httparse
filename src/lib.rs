@@ -117,8 +117,17 @@ pub enum Error {
 }
 
 impl Error {
+    /// Returns the error's description as a static string.
+    ///
+    /// This is the same message produced by the [`Display`](fmt::Display)
+    /// implementation, without allocating a string.
+    ///
+    /// ```
+    /// let description: &'static str = httparse::Error::HeaderName.description_str();
+    /// assert_eq!(description, "invalid header name");
+    /// ```
     #[inline]
-    fn description_str(&self) -> &'static str {
+    pub fn description_str(&self) -> &'static str {
         match *self {
             Error::HeaderName => "invalid header name",
             Error::HeaderValue => "invalid header value",
